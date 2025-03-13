@@ -1,8 +1,8 @@
-package rest
+package v1
 
 import "github.com/gin-gonic/gin"
 
-func (h *Handler) NewRouter(router *gin.Engine) *gin.Engine {
+func (h *Server) RegisterRoutes(router *gin.Engine) *gin.Engine {
 
 	router.Handle("POST", "/user", h.AddUser)
 

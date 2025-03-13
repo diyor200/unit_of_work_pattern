@@ -1,4 +1,4 @@
-package rest
+package v1
 
 import (
 	"net/http"
@@ -8,13 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {
+type Server struct {
 	Router *gin.Engine
-	uc     users.UserUseCase
+	uc     *users.Usecase
 }
 
-func NewHandler(uc users.UserUseCase) *Handler {
-	return &Handler{uc: uc}
+func NewServer(uc *users.Usecase) *Server {
+	srv := &Server{uc: uc}
+	srv.Router = srv.RegisterRoutes(gin.Default())
+	return srv
 }
 
 type addUserRequest struct {
@@ -22,7 +24,7 @@ type addUserRequest struct {
 	Email string `json:"email"`
 }
 
-func (h *Handler) AddUser(c *gin.Context) {
+func (h *Server) AddUser(c *gin.Context) {
 	var data addUserRequest
 	if err := c.ShouldBindJSON(&data); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
