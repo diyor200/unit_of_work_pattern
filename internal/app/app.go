@@ -2,13 +2,14 @@ package app
 
 import (
 	"context"
+	"log"
+	"os"
+
 	"github.com/diyor200/uof/internal/gateway/rest/v1"
 	"github.com/diyor200/uof/internal/uow"
 	"github.com/diyor200/uof/internal/usecase/users"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/fx"
-	"log"
-	"os"
 )
 
 func NewFXApp() *fx.App {
